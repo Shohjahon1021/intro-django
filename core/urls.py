@@ -1,11 +1,15 @@
 from django.contrib import admin
 from django.urls import path
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 
 
-def home(request):
-    return HttpResponse("Hello World")
+def home(request: HttpRequest):
+    params = request.GET
+
+    name = params.get('name', 'World')
+
+    return HttpResponse(f"Hello {name}!")
 
 def about(request):
     return HttpResponse("About Page")
