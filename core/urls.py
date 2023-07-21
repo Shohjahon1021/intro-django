@@ -23,6 +23,13 @@ def blog(request):
 def projects(request):
     return HttpResponse("Projects Page")
 
+def sum(request):
+    pass # a, b => "result: 5"
+
+
+def hi(request, name):
+    return HttpResponse(f"Hello {name}!")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +39,7 @@ urlpatterns = [
     path('contact/', contact),
     path('blog/', blog),
     path('projects/', projects),
+
+    path('sum', sum),
+    path('hi/<str:name>', hi)
 ]
