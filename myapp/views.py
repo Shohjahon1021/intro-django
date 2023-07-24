@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+import json
 
 # Create your views here.
 def home(request: HttpRequest):
@@ -22,4 +23,9 @@ def projects(request):
     return HttpResponse("Projects Page")
 
 def sum(request):
-    pass # a, b => "result: 5"
+    data_json = request.body.decode('utf-8')
+    data = json.loads(data_json)
+
+    print(data.get('username'))
+    
+    return HttpResponse("Sum Page")
