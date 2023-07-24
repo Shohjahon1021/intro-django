@@ -6,7 +6,7 @@ import json
 def home(request: HttpRequest):
     params = request.GET
 
-    name = params.get('name', 'World')
+    name = params.get('name', 'World!')
 
     return HttpResponse(f"Hello {name}!")
 
@@ -25,7 +25,8 @@ def projects(request):
 def sum(request):
     data_json = request.body.decode('utf-8')
     data = json.loads(data_json)
-
-    print(data.get('username'))
+    a = data.get('a')
+    b = data.get('b')
+    c = a + b
     
-    return HttpResponse("Sum Page")
+    return HttpResponse(f"{c}")
