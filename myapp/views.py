@@ -1,10 +1,21 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest,JsonResponse
 import json
+import requests
 
-# Create your views here.
-def home(request):
-    return HttpResponse("Hello Djangoooo")
+URL = 'https://randomuser.me/api/?results=30'
 
-def about(request):
-    return HttpResponse("Hello About")
+
+def users(request: HttpRequest):
+    response = requests.get(URL)
+    if response.status_code == 200:
+        data = response.json()
+        users = []
+        photos = []
+        for user in data['results']:
+            users.append(user['email'])
+            photos.append(user['picture']['medium'])
+        
+        return JsonResponse(users, safe=False)
+    
+    return JsonResponse({'error':'Something went wrong'})
