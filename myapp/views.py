@@ -14,8 +14,20 @@ def users(request: HttpRequest):
         photos = []
         for user in data['results']:
             users.append(user['email'])
-            photos.append(user['picture']['medium'])
+            # photos.append(user['picture']['medium'])
         
         return JsonResponse(users, safe=False)
+    
+    return JsonResponse({'error':'Something went wrong'})
+
+def photos(request: HttpRequest):
+    response = requests.get(URL)
+    if response.status_code == 200:
+        data = response.json()
+        photos = []
+        for user in data['results']:
+            photos.append(user['picture']['medium'])
+        
+        return JsonResponse(photos, safe=False)
     
     return JsonResponse({'error':'Something went wrong'})
